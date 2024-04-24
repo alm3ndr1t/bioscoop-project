@@ -1,0 +1,55 @@
+halls vullen:
+use movieDb;
+-- Insert Specific Halls
+INSERT INTO Hall (name, capacity, screenType) VALUES
+  ('Hall 1', 50, '2D'),
+  ('Hall 2', 50, '3D'),
+  ('Hall 3', 50, '2D');
+
+
+SELECT * FROM User ;
+SELECT * FROM Movie ;
+SELECT * FROM Showtime;
+SELECT * FROM Ticket ;
+SELECT * FROM Hall;
+SELECT * FROM Genre ;
+SELECT * FROM CastMember ;
+
+
+use movieDb;
+SELECT
+  m.id AS movieId,
+  m.title AS movieTitle,
+  s.date AS showtimeDate,
+  h.name AS hallName
+FROM
+  Movie m
+JOIN
+  Showtime s ON m.id = x.movieId
+JOIN
+  Hall h ON s.hallId = h.id;
+
+
+-- Assuming the movie duration is between 1 to 3 hours
+-- Generating two showtimes for each of the first 50 movies
+INSERT INTO Showtime (movieId, date, hallId)
+SELECT 
+  m.id AS movieId,
+  TIMESTAMP('2024-01-18 13:00') + INTERVAL ROUND(RAND() * 8) * 30 MINUTE AS date,
+  h.id AS hallId
+FROM Movie m
+JOIN Hall h ON RAND() * 100 < 80 -- 80% chance of selecting a hall for a showtime
+WHERE m.id BETWEEN 1 AND 50
+  AND TIMESTAMP('2024-01-18 13:00') + INTERVAL ROUND(RAND() * 8) * 30 MINUTE BETWEEN '2024-01-18 13:00' AND '2024-01-18 23:00'
+LIMIT 100; -- Limit to 100 showtimes (2 showtimes for each of the first 50 movies)
+
+-- Insert Specific Halls
+INSERT INTO Hall (name, capacity, screenType) VALUES
+  ('Hall 1', 28, '2D'),
+
+-- Insert Seats for Hall 1
+INSERT INTO Seat (hallId, seatNumber) VALUES
+  (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8),
+  (1, 9), (1, 10), (1, 11), (1, 12), (1, 13), (1, 14), (1, 15),
+  (1, 16), (1, 17), (1, 18), (1, 19), (1, 20), (1, 21), (1, 22),
+  (1, 23), (1, 24), (1, 25), (1, 26), (1, 27), (1, 28);

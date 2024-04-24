@@ -1,0 +1,11 @@
+-- CreateTable
+CREATE TABLE `Seat` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `hallId` INTEGER NOT NULL,
+    `seatNumber` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `Seat` ADD CONSTRAINT `Seat_hallId_fkey` FOREIGN KEY (`hallId`) REFERENCES `Hall`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
